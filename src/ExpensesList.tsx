@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { categories, capitalize, Expense } from './utils';
 
 interface Props {
-  expenses: Expense[]
+  expenses: Expense[],
+  removeExpense: (id: string) => void
 }
 
-const ExpensesList = ({ expenses }: Props) => {
+const ExpensesList = ({ expenses, removeExpense }: Props) => {
   const [selectedValue, setSelectedValue] = useState('');
 
   const handleSelectChange = (value: string): void => {
@@ -37,7 +38,7 @@ const ExpensesList = ({ expenses }: Props) => {
                 <td>{expense.description}</td>
                 <td>{expense.amount}</td>
                 <td>{expense.category}</td>
-                <td><button className="btn btn-danger">Delete</button></td>
+                <td><button onClick={() => removeExpense(expense.id)} className="btn btn-danger">Delete</button></td>
               </tr>
             )
           })}

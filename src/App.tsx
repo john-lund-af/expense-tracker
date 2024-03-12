@@ -14,6 +14,11 @@ function App() {
     setExpenses([...expenses, expense])
   }
 
+  const removeExpense = (expenseId: string) => {
+    const modifiedExpenses = expenses.filter(expense => expense.id !== expenseId);
+    setExpenses(modifiedExpenses);
+  }
+
   return <>
     <Navbar />
     <div className="container mt-5">
@@ -24,7 +29,7 @@ function App() {
       </div>
       <div className="row mb-5">
         <div className="col">
-          <ExpensesList expenses={expenses} />
+          <ExpensesList expenses={expenses} removeExpense={removeExpense} />
         </div>
       </div>
     </div>
