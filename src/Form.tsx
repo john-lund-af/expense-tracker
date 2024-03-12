@@ -21,6 +21,7 @@ const Form = ({ handleExpense }: Props) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid }
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
@@ -33,6 +34,8 @@ const Form = ({ handleExpense }: Props) => {
       const category = data.category;
 
       handleExpense({ id, description, amount, category });
+
+      reset();
     }
   }
 
