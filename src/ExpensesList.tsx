@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ExpensesList = ({ expenses, removeExpense }: Props) => {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState('all');
 
   const handleSelectChange = (value: string): void => {
     console.log(value);
@@ -17,9 +17,13 @@ const ExpensesList = ({ expenses, removeExpense }: Props) => {
   if (expenses.length === 0)
     return <p className="h4 text-primary">No expenses at the moment.</p>
 
+  // Derived state 
+  const filteredExpenses = selectedValue === 'all' ? [...expenses] : expenses.filter(expense => expense.category.toLowerCase() === selectedValue.toLowerCase());
+
   return (
     <>
       <select value={selectedValue} onChange={(event) => handleSelectChange(event.target.value)} name="filter" id="filter" className="form-select">
+        <option value="all">All</option>
         {categories.map(category => <option key={category} value={category}>{capitalize(category)}</option>)}
       </select>
       <table className="table">
@@ -32,7 +36,7 @@ const ExpensesList = ({ expenses, removeExpense }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense, index) => {
+          {filteredExpenses.map((expense, index) => {
             return (
               <tr className='align-middle' key={index}>
                 <td>{expense.description}</td>
