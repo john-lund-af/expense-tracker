@@ -40,13 +40,21 @@ const ExpensesList = ({ expenses, removeExpense }: Props) => {
             return (
               <tr className='align-middle' key={index}>
                 <td>{expense.description}</td>
-                <td>{expense.amount}</td>
+                <td>${expense.amount.toFixed(2)}</td>
                 <td>{expense.category}</td>
                 <td><button onClick={() => removeExpense(expense.id)} className="btn btn-danger">Delete</button></td>
               </tr>
             )
           })}
         </tbody>
+        <tfoot>
+          <tr>
+            <th>Total:</th>
+            <td>${filteredExpenses.reduce((prev, curr) => { return prev + curr.amount }, 0).toFixed(2)}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
       </table>
     </>
   )
