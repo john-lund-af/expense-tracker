@@ -10,7 +10,6 @@ const ExpensesList = ({ expenses, removeExpense }: Props) => {
   const [selectedValue, setSelectedValue] = useState('all');
 
   const handleSelectChange = (value: string): void => {
-    console.log(value);
     setSelectedValue(value);
   }
 
@@ -26,7 +25,7 @@ const ExpensesList = ({ expenses, removeExpense }: Props) => {
         <option value="all">All</option>
         {categories.map(category => <option key={category} value={category}>{capitalize(category)}</option>)}
       </select>
-      <table className="table">
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th>Description</th>
@@ -41,8 +40,8 @@ const ExpensesList = ({ expenses, removeExpense }: Props) => {
               <tr className='align-middle' key={index}>
                 <td>{expense.description}</td>
                 <td>${expense.amount.toFixed(2)}</td>
-                <td>{expense.category}</td>
-                <td><button onClick={() => removeExpense(expense.id)} className="btn btn-danger">Delete</button></td>
+                <td>{capitalize(expense.category)}</td>
+                <td><button onClick={() => removeExpense(expense.id)} className="btn btn-outline-danger">Delete</button></td>
               </tr>
             )
           })}
@@ -50,7 +49,7 @@ const ExpensesList = ({ expenses, removeExpense }: Props) => {
         <tfoot>
           <tr>
             <th>Total:</th>
-            <td>${filteredExpenses.reduce((prev, curr) => { return prev + curr.amount }, 0).toFixed(2)}</td>
+            <td>${filteredExpenses.reduce((acc, expense) => acc + expense.amount, 0).toFixed(2)}</td>
             <td></td>
             <td></td>
           </tr>

@@ -10,7 +10,6 @@ function App() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
 
   const addExpense = (expense: Expense) => {
-    console.log(expense);
     setExpenses([...expenses, expense])
   }
 

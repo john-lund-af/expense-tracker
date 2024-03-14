@@ -15,4 +15,4 @@ export function capitalize(str: string): string {
   return `${str.charAt(0).toLocaleUpperCase()}${str.slice(1)}`;
 }
 
-export const categories: string[] = ['groceries', 'utilities', 'entertainment'];
+export const categories = ['groceries', 'utilities', 'entertainment'] as const;

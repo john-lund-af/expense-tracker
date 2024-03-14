@@ -10,7 +10,7 @@ interface Props {
 const schema = z.object({
   description: z.string().min(3, { message: 'Description must be at least 3 characters' }),
   amount: z.number({ invalid_type_error: 'Amount field is required' }),
-  category: z.enum(['groceries', 'utilities', 'entertainment'])
+  category: z.enum(categories, { errorMap: () => ({ message: 'Category is required' }) })
 });
 
 type FormData = z.infer<typeof schema>
@@ -57,7 +57,7 @@ const Form = ({ handleExpense }: Props) => {
           <option value=""></option>
           {categories.map(category => <option key={category} value={category}>{capitalize(category)}</option>)}
         </select>
-        {errors.category && <div className="alert alert-danger mt-2">Choose an existing category</div>}
+        {errors.category && <div className="alert alert-danger mt-2">{errors.category.message}</div>}
       </div>
       <button className="btn btn-primary" type="submit">Submit</button>
     </form>
